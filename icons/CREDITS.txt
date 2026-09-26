@@ -2,7 +2,7 @@ Icons from https://game-icons.net (source: https://github.com/game-icons/icons)
 License: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/) unless noted; zeromancer icons are CC0.
 Modified: black background removed, used as single-colour masks.
 
-lorc: magic-swirl, fireball, ice-spear, lightning-trio, meteor-impact, whirlwind, teleport, raven, feathered-wing, magic-shield, thrown-spear, sword-slice, axe-swing, energy-arrow, sun-radiations, snowflake-2, winged-shield, fire-zone, dragon-head, wing-cloak, broadsword, battle-axe, wizard-staff, fairy-wand, heart-organ, magic-palm, checked-shield, shield-reflect, sprint, crossed-swords, trophy, skull-crossed-bones, laurel-crown, poker-hand, rune-stone, aura, wingfoot, heavy-fall
+lorc: magic-swirl, fireball, ice-spear, lightning-trio, meteor-impact, whirlwind, teleport, raven, feathered-wing, magic-shield, thrown-spear, sword-slice, axe-swing, energy-arrow, sword-spin, sword-wound, spinning-blades, shouting, sun-radiations, snowflake-2, winged-shield, fire-zone, dragon-head, wing-cloak, broadsword, battle-axe, wizard-staff, fairy-wand, heart-organ, magic-palm, checked-shield, shield-reflect, sprint, crossed-swords, trophy, skull-crossed-bones, laurel-crown, poker-hand, rune-stone, aura, wingfoot, heavy-fall
 zeromancer: heart-plus
 delapouite: stone-wall, all-seeing-eye, coins, rolling-dices, exit-door
 sbed: poison-cloud
