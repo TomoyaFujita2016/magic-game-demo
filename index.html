@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@400;700&display=swap" />
-    <script type="module" crossorigin src="./assets/index-BOmQQrZp.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CdBb8M2v.css">
+    <script type="module" crossorigin src="./assets/index-5w9TQcj3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-8Z_I-JDj.css">
   </head>
   <body>
     <div id="app"></div>
@@ -104,12 +104,19 @@
           <label>視点感度
             <input id="opt-sens" type="range" min="0.5" max="2.5" step="0.1" value="1" />
           </label>
+          <label>BGM
+            <input id="opt-bgm" type="range" min="0" max="1" step="0.05" value="0.45" />
+          </label>
+          <label>効果音
+            <input id="opt-sfx" type="range" min="0" max="1.5" step="0.05" value="1" />
+          </label>
           <label>操作
             <select id="opt-control"><option value="auto" selected>自動</option><option value="touch">タッチ（スマホ）</option><option value="pc">キーボード＋マウス</option></select>
           </label>
         </div>
         <button id="btn-start"><i data-ico="vs"></i> 新しい旅に出る</button>
         <button id="btn-continue" class="ghost hidden">続きから</button>
+        <button id="btn-online" class="ghost"><i data-ico="vs"></i> オンライン対戦（友達と）</button>
         <div class="controls">
           <h3>操作</h3>
           <table>
@@ -147,6 +154,9 @@
           <p class="credits">
             3Dモデル: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>（Kay Lousberg, CC0）<br />
             アイコン: <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> の Lorc, Delapouite, Skoll, Sbed（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>）、Zeromancer（CC0）。背景を外して単色化<br />
+            BGM: Kevin MacLeod「Nordic Wist」、Alexander Nakarada「Blood Eagle」「Jökull (Metal Version)」（<a href="https://freepd.com" target="_blank" rel="noopener">FreePD</a> 公開分, CC0。Nakarada 氏の曲は他所では CC BY 4.0 のため作者名を表記）<br />
+            粒子画像: Kenney Particle Pack（CC0）<br />
+            魔法の効果音: rubberduck, Ben Burnes ほか（CC0、<a href="https://github.com/lavenderdotpet/CC0-Public-Domain-Sounds" target="_blank" rel="noopener">CC0-Public-Domain-Sounds</a> 経由）、実況の声: Kenney Voiceover Pack（CC0）<br />
             効果音: <a href="https://kenney.nl" target="_blank" rel="noopener">Kenney</a>（Casino Audio / Impact Sounds / Interface Sounds / RPG Audio, CC0）<br />
             フォント: Cinzel, Shippori Mincho B1, Noto Sans JP（SIL Open Font License）
           </p>
