@@ -4,4 +4,4 @@
 
 **遊ぶ:** https://tomoyafujita2016.github.io/magic-game-demo/
 
-このリポジトリにはビルド済みのファイルだけが入っています。ソースコードは [magic-war](https://github.com/TomoyaFujita2016/magic-war) の `claude/3v3-wizard-fps-jv6w6b` ブランチ（コミット 2007494）です。
+このリポジトリにはビルド済みのファイルだけが入っています。ソースコードは [magic-war](https://github.com/TomoyaFujita2016/magic-war) の `claude/3v3-wizard-fps-jv6w6b` ブランチ（コミット d18c708）です。
