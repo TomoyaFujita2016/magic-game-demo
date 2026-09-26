@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#0b0e18" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ctext y=%2214%22 font-size=%2214%22%3E%E1%9B%9F%3C/text%3E%3C/svg%3E" />
+    <title>MAGIC WAR — 北欧魔導戦</title>
+    <script type="module" crossorigin src="./assets/index-MQUa-cdE.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-QJ3sLHu9.css">
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div id="hud" class="hidden">
+      <div id="scorebar">
+        <div class="team t0"><span class="tname">蒼の結社</span><span id="score0" class="score">0</span><span id="alive0" class="alive"></span></div>
+        <div class="mid"><div id="roundlabel">ROUND 1</div><div id="timer">2:30</div><div id="towin"></div></div>
+        <div class="team t1"><span id="alive1" class="alive"></span><span id="score1" class="score">0</span><span class="tname">紅の結社</span></div>
+      </div>
+
+      <div id="killfeed"></div>
+      <canvas id="radar" width="200" height="200"></canvas>
+      <div id="speedlines"></div>
+      <div id="dmgnums"></div>
+      <div id="dmgdir"></div>
+      <div id="ult"><div class="key">F</div><div class="ring"><div id="ult-fill"></div></div><div class="nm">奥義・グングニル</div></div>
+      <div id="flight"><div class="lbl">飛行 <small>Space上昇 / C下降</small></div><div class="meter"><div id="flight-fill"></div></div></div>
+      <div id="ring-warn" class="hidden">スルトの炎環の外にいる！ 中央へ</div>
+
+      <div id="crosshair">
+        <svg viewBox="-60 -60 120 120" width="120" height="120">
+          <circle r="34" class="ring-bg" />
+          <circle id="charge-ring" r="34" class="ring" transform="rotate(-90)" />
+          <g id="focus-brackets">
+            <path id="br-l" d="M -14 -8 L -18 -8 L -18 8 L -14 8" />
+            <path id="br-r" d="M 14 -8 L 18 -8 L 18 8 L 14 8" />
+          </g>
+          <circle r="1.6" class="dot" />
+          <g id="hitmarker">
+            <path d="M -9 -9 L -4 -4 M 9 -9 L 4 -4 M -9 9 L -4 4 M 9 9 L 4 4" />
+          </g>
+        </svg>
+        <div id="charge-label"></div>
+      </div>
+
+      <div id="prompt"><div id="prompt-text"></div><div id="prompt-bar"><div id="prompt-fill"></div></div></div>
+      <div id="center-msg"></div>
+      <div id="sub-msg"></div>
+      <div id="toasts"></div>
+
+      <div id="vitals">
+        <div class="bar hp"><div id="hp-regen" class="regen"></div><div id="hp-fill" class="fill"></div><span id="hp-text"></span></div>
+        <div class="bar mana"><div id="mana-cost" class="cost"></div><div id="mana-fill" class="fill"></div><span id="mana-text"></span></div>
+        <div id="status-line"></div>
+      </div>
+
+      <div id="spellbar"></div>
+
+      <div id="tuning">
+        <div id="focus-meter"><div class="lbl">集束 <small>(ホイール)</small></div><div class="meter"><div id="focus-fill"></div></div><div id="focus-desc"></div></div>
+        <div id="shield-meter"><div class="lbl">前面障壁 <small>(右クリック中にホイール)</small></div><div class="meter"><div id="shield-fill"></div></div><div id="shield-desc"></div></div>
+      </div>
+
+      <div id="loot" class="hidden"></div>
+      <div id="damage-vignette"></div>
+      <div id="dead-overlay" class="hidden"><div>倒された</div><small>味方の視点で観戦中（次のラウンドで復活）</small></div>
+    </div>
+
+    <div id="grimoire" class="overlay hidden">
+      <div class="panel">
+        <h2>魔導書 <small>Tab で閉じる</small><button id="btn-grim-close" class="mini ghost">閉じる</button></h2>
+        <p class="hint">魔法をクリックして選択 → 別の魔法をクリックで「合成」「強化」「入替」。同じ魔法同士はレベルアップ（最大Lv3）。</p>
+        <div id="grim-slots"></div>
+        <div id="grim-actions"></div>
+        <div id="grim-recipes"></div>
+      </div>
+    </div>
+
+    <div id="menu" class="overlay">
+      <div class="panel title">
+        <h1>MAGIC WAR <span>北欧魔導戦</span></h1>
+        <p class="lead">3対3の魔法使いの戦い。溜めて、絞って、防いで、奪え。</p>
+        <div class="opts">
+          <label>先取ラウンド数
+            <select id="opt-rounds"><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option><option value="12">12</option></select>
+          </label>
+          <label>AIの強さ
+            <select id="opt-diff"><option value="easy">見習い</option><option value="normal" selected>魔導士</option><option value="hard">大魔導士</option></select>
+          </label>
+          <label>画質
+            <select id="opt-quality"><option value="high" selected>高（RTX3060 目安）</option><option value="low">低</option><option value="mobile">スマホ</option></select>
+          </label>
+          <label>マウス感度
+            <input id="opt-sens" type="range" min="0.5" max="2.5" step="0.1" value="1" />
+          </label>
+          <label>操作
+            <select id="opt-control"><option value="auto" selected>自動</option><option value="touch">タッチ（スマホ）</option><option value="pc">キーボード＋マウス</option></select>
+          </label>
+        </div>
+        <button id="btn-start">出陣する</button>
+        <div class="controls">
+          <h3>操作</h3>
+          <table>
+            <tr><td>WASD / Space / Shift</td><td>移動 / ジャンプ / 走る</td></tr>
+            <tr><td>左クリック 長押し→離す</td><td>詠唱。長く溜めるほど強い（魔法陣が大きくなる）</td></tr>
+            <tr><td>ホイール</td><td>集束：上＝細く遠く / 下＝広く近く（射程・拡散・円錐角）</td></tr>
+            <tr><td>右クリック 長押し</td><td>前面障壁。押しながらホイールで大きさ（小＝厚く安い）</td></tr>
+            <tr><td>Q 長押し</td><td>全方位ドーム障壁（範囲攻撃の中心・毒霧用。マナ消費大）</td></tr>
+            <tr><td>1 / 2 / 3 / 4</td><td>基本攻撃 / 魔法スロット1〜3</td></tr>
+            <tr><td>E 長押し</td><td>魔導書を拾う・敵の亡骸から魔法を奪う・倒れた味方を蘇生</td></tr>
+            <tr><td>飛行中 Space / C</td><td>上昇 / 下降（フレイヤの鷹羽衣を使うと一時的に飛べる）</td></tr>
+            <tr><td>F</td><td>奥義・グングニル（ゲージ満タン時。与ダメ・防御・撃破で溜まる）</td></tr>
+            <tr><td>Tab</td><td>魔導書（合成・強化・入替）</td></tr>
+          </table>
+          <h3>スマホ（タッチ操作）</h3>
+          <table>
+            <tr><td>画面の左半分</td><td>触った所にスティックが出る。奥まで倒すと走る</td></tr>
+            <tr><td>画面の右半分をなぞる</td><td>視点移動</td></tr>
+            <tr><td>詠唱ボタン 長押し→離す</td><td>詠唱。押したまま指を動かすと照準も動く</td></tr>
+            <tr><td>集束スライダー</td><td>上になぞると細く遠く、下で広く近く（障壁中は障壁の大きさ）</td></tr>
+            <tr><td>障壁 / ドーム</td><td>押している間だけ張る</td></tr>
+            <tr><td>下の魔法バー</td><td>タップで魔法を切り替え</td></tr>
+          </table>
+          <h3>コツ</h3>
+          <ul>
+            <li>障壁を出した直後0.25秒はパリィ（ほぼ無償で防御）。敵の魔法陣を見て合わせる。</li>
+            <li>爆発の中心近くや毒霧の中は前面障壁では防げない。ドーム(Q)か逃げる。</li>
+            <li>氷槍など貫通力の高い魔法は、大きい障壁ほどすり抜ける。小さく絞って受ける。</li>
+            <li>倒した敵の魔法を奪うと、相手はそれを失う。魔法はラウンドをまたいで残る。</li>
+            <li>雷系（トールの雷槌・ラグナロク・オーディンの眼）は飛んでいる相手に1.5倍近いダメージを与え、撃ち落とす。</li>
+            <li>頭（帽子）に当てるとクリティカル1.5倍。範囲攻撃は対象外。</li>
+            <li>HPは25ごとの区切り。5秒被弾しなければ今の区切りの上限まで自然回復する。それ以上は回復魔法（希少）が必要。</li>
+            <li>毒霧を浴びている間は回復効果が半減する。</li>
+            <li>光る六角形の上昇気流に乗ると高く打ち上げられ、滑空できる。</li>
+            <li>開戦60秒後からスルトの炎環が中央へ縮む。外側では毎秒ダメージ。</li>
+            <li>負けたチームは次のラウンド開始時に魔導書を1冊授かる（敗者の加護）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="pause" class="overlay hidden">
+      <div class="panel small">
+        <h2>一時停止</h2>
+        <button id="btn-resume">再開</button>
+        <button id="btn-quit" class="ghost">タイトルへ</button>
+      </div>
+    </div>
+
+    <div id="matchend" class="overlay hidden">
+      <div class="panel">
+        <h2 id="match-title"></h2>
+        <table id="match-stats"></table>
+        <button id="btn-again">もう一戦</button>
+      </div>
+    </div>
+
+    <div id="rotate-hint"><div>端末を横向きにしてください</div></div>
+
+  </body>
+</html>
