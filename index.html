@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#0b0e18" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ctext y=%2214%22 font-size=%2214%22%3E%E1%9B%9F%3C/text%3E%3C/svg%3E" />
-    <title>MAGIC WAR — 北欧魔導戦</title>
-    <script type="module" crossorigin src="./assets/index-BC5w9158.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DF_LBl5i.css">
+    <title>MAGIC DUEL — 北欧魔導決闘</title>
+    <script type="module" crossorigin src="./assets/index-Daz08Qhq.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CqwpeUgi.css">
   </head>
   <body>
     <div id="app"></div>
@@ -82,26 +82,30 @@
 
     <div id="menu" class="overlay">
       <div class="panel title">
-        <h1>MAGIC WAR <span>北欧魔導戦</span></h1>
-        <p class="lead">3対3の魔法使いの戦い。溜めて、絞って、防いで、奪え。</p>
+        <h1>MAGIC DUEL <span>北欧魔導決闘</span></h1>
+        <p class="lead">1対1の魔法使いの決闘。能力値は運、装備と賭けは選択、勝敗は腕で決まる。</p>
+        <div class="howto">
+          <b>遊び方</b>
+          <ol>
+            <li>300チップを持って、5人の相手に順番に挑む。チップが尽きたら旅は終わり。</li>
+            <li>決闘の前に、自分と相手の能力値（体力・物攻・魔攻・物防・魔防・素早さ）がランダムに決まる。魔法も2つ抽選される。</li>
+            <li>能力値を見て装備（剣・斧・両手杖・短杖）を選び、賭け額を決める。多く賭けるほど全能力が上がる（全賭けで+35%）。</li>
+            <li>先に2ラウンド取った方が、両者の賭け金を総取り。</li>
+          </ol>
+        </div>
         <div class="opts">
-          <label>先取ラウンド数
-            <select id="opt-rounds"><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option><option value="12">12</option></select>
-          </label>
-          <label>AIの強さ
-            <select id="opt-diff"><option value="easy">見習い</option><option value="normal" selected>魔導士</option><option value="hard">大魔導士</option></select>
-          </label>
           <label>画質
             <select id="opt-quality"><option value="high" selected>高（RTX3060 目安）</option><option value="low">低</option><option value="mobile">スマホ</option></select>
           </label>
-          <label>マウス感度
+          <label>視点感度
             <input id="opt-sens" type="range" min="0.5" max="2.5" step="0.1" value="1" />
           </label>
           <label>操作
             <select id="opt-control"><option value="auto" selected>自動</option><option value="touch">タッチ（スマホ）</option><option value="pc">キーボード＋マウス</option></select>
           </label>
         </div>
-        <button id="btn-start">出陣する</button>
+        <button id="btn-start">新しい旅に出る</button>
+        <button id="btn-continue" class="ghost hidden">続きから</button>
         <div class="controls">
           <h3>操作</h3>
           <table>
@@ -110,11 +114,11 @@
             <tr><td>ホイール</td><td>集束：上＝細く遠く / 下＝広く近く（射程・拡散・円錐角）</td></tr>
             <tr><td>右クリック 長押し</td><td>前面障壁。押しながらホイールで大きさ（小＝厚く安い）</td></tr>
             <tr><td>Q 長押し</td><td>全方位ドーム障壁（範囲攻撃の中心・毒霧用。マナ消費大）</td></tr>
-            <tr><td>1 / 2 / 3 / 4</td><td>基本攻撃 / 魔法スロット1〜3</td></tr>
-            <tr><td>E 長押し</td><td>魔導書を拾う・敵の亡骸から魔法を奪う・倒れた味方を蘇生</td></tr>
+            <tr><td>1 / 2 / 3</td><td>武器（剣・斧は近接攻撃、杖は魔弾） / 抽選された魔法2つ</td></tr>
+            <tr><td>剣</td><td>左クリックをタップで3連斬り、長押しで踏み込み突き</td></tr>
+            <tr><td>斧</td><td>タップで振り下ろし、長押しで跳び込み叩きつけ（障壁を大きく削る）</td></tr>
             <tr><td>飛行中 Space / C</td><td>上昇 / 下降（フレイヤの鷹羽衣を使うと一時的に飛べる）</td></tr>
             <tr><td>F</td><td>奥義・グングニル（ゲージ満タン時。与ダメ・防御・撃破で溜まる）</td></tr>
-            <tr><td>Tab</td><td>魔導書（合成・強化・入替）</td></tr>
           </table>
           <h3>スマホ（タッチ操作）</h3>
           <table>
@@ -127,17 +131,13 @@
           </table>
           <h3>コツ</h3>
           <ul>
-            <li>障壁を出した直後0.25秒はパリィ（ほぼ無償で防御）。敵の魔法陣を見て合わせる。</li>
-            <li>爆発の中心近くや毒霧の中は前面障壁では防げない。ドーム(Q)か逃げる。</li>
-            <li>氷槍など貫通力の高い魔法は、大きい障壁ほどすり抜ける。小さく絞って受ける。</li>
-            <li>倒した敵の魔法を奪うと、相手はそれを失う。魔法はラウンドをまたいで残る。</li>
-            <li>雷系（トールの雷槌・ラグナロク・オーディンの眼）は飛んでいる相手に1.5倍近いダメージを与え、撃ち落とす。</li>
-            <li>頭（帽子）に当てるとクリティカル1.5倍。範囲攻撃は対象外。</li>
-            <li>HPは25ごとの区切り。5秒被弾しなければ今の区切りの上限まで自然回復する。それ以上は回復魔法（希少）が必要。</li>
-            <li>毒霧を浴びている間は回復効果が半減する。</li>
-            <li>光る六角形の上昇気流に乗ると高く打ち上げられ、滑空できる。</li>
-            <li>開戦60秒後からスルトの炎環が中央へ縮む。外側では毎秒ダメージ。</li>
-            <li>負けたチームは次のラウンド開始時に魔導書を1冊授かる（敗者の加護）。</li>
+            <li>能力値の低い所を装備で補うか、高い所を伸ばすか。★の相性は目安。</li>
+            <li>相手の能力値は見える。物防が低い相手には剣・斧、魔防が低い相手には杖が通りやすい。</li>
+            <li>不利な能力値なら賭けを小さく、有利なら大きく。ただし相手も同じことを考えている。</li>
+            <li>剣・斧は振りかぶりが見える。見てから前面障壁（右クリック）を張れば防げる。斧は障壁を大きく削る。</li>
+            <li>障壁を出した直後0.25秒はパリィ。爆発の中心や毒霧の中はドーム(Q)でないと防げない。</li>
+            <li>闘技場は炎の輪。20秒後から縮むので、逃げ回るだけでは勝てない。</li>
+            <li>頭に当てるとクリティカル1.5倍。雷は飛んでいる相手を撃ち落とす。</li>
           </ul>
         </div>
       </div>
