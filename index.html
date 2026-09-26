@@ -9,8 +9,11 @@
     <meta name="theme-color" content="#0b0e18" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ctext y=%2214%22 font-size=%2214%22%3E%E1%9B%9F%3C/text%3E%3C/svg%3E" />
     <title>MAGIC DUEL — 北欧魔導決闘</title>
-    <script type="module" crossorigin src="./assets/index-Daz08Qhq.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CqwpeUgi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@400;700&display=swap" />
+    <script type="module" crossorigin src="./assets/index-BOmQQrZp.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CdBb8M2v.css">
   </head>
   <body>
     <div id="app"></div>
@@ -82,6 +85,7 @@
 
     <div id="menu" class="overlay">
       <div class="panel title">
+        <div class="emblem"><i data-ico="vs"></i></div>
         <h1>MAGIC DUEL <span>北欧魔導決闘</span></h1>
         <p class="lead">1対1の魔法使いの決闘。能力値は運、装備と賭けは選択、勝敗は腕で決まる。</p>
         <div class="howto">
@@ -104,7 +108,7 @@
             <select id="opt-control"><option value="auto" selected>自動</option><option value="touch">タッチ（スマホ）</option><option value="pc">キーボード＋マウス</option></select>
           </label>
         </div>
-        <button id="btn-start">新しい旅に出る</button>
+        <button id="btn-start"><i data-ico="vs"></i> 新しい旅に出る</button>
         <button id="btn-continue" class="ghost hidden">続きから</button>
         <div class="controls">
           <h3>操作</h3>
@@ -139,6 +143,13 @@
             <li>闘技場は炎の輪。20秒後から縮むので、逃げ回るだけでは勝てない。</li>
             <li>頭に当てるとクリティカル1.5倍。雷は飛んでいる相手を撃ち落とす。</li>
           </ul>
+          <h3>クレジット</h3>
+          <p class="credits">
+            3Dモデル: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>（Kay Lousberg, CC0）<br />
+            アイコン: <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> の Lorc, Delapouite, Skoll, Sbed（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>）、Zeromancer（CC0）。背景を外して単色化<br />
+            効果音: <a href="https://kenney.nl" target="_blank" rel="noopener">Kenney</a>（Casino Audio / Impact Sounds / Interface Sounds / RPG Audio, CC0）<br />
+            フォント: Cinzel, Shippori Mincho B1, Noto Sans JP（SIL Open Font License）
+          </p>
         </div>
       </div>
     </div>
