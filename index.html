@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@400;700&display=swap" />
-    <script type="module" crossorigin src="./assets/index-BlUN7nrY.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bon8iqVr.css">
+    <script type="module" crossorigin src="./assets/index-Dg5VJzdG.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D6zi7Y3v.css">
   </head>
   <body>
     <div id="app"></div>
@@ -92,9 +92,10 @@
           <b>遊び方</b>
           <ol>
             <li>300チップを持って、5人の相手に順番に挑む。チップが尽きたら旅は終わり。</li>
-            <li>決闘の前に、自分と相手の能力値（体力・物攻・魔攻・物防・魔防・素早さ）がランダムに決まる。魔法も2つ抽選される。</li>
-            <li>能力値を見て装備（剣・斧・両手杖・短杖）を選び、賭け額を決める。多く賭けるほど全能力が上がる（全賭けで+35%）。</li>
-            <li>先に2ラウンド取った方が、両者の賭け金を総取り。</li>
+            <li>決闘の前に、ジョブ（剣士・戦士・魔術師・魔導士）を選ぶ。</li>
+            <li>賭けるチップを決める。賭けたチップがそのまま能力値ポイントになる（多く賭けるほど強いが、負ければ失う）。</li>
+            <li>ポイントを体力・物攻・魔攻・物防・魔防・素早さに割り振る（おまかせも可）。杖のジョブは抽選された魔法2つ＋転移を使う。</li>
+            <li>横から見た闘技場で戦い、先に2ラウンド取った方が、両者の賭け金を総取り。</li>
           </ol>
         </div>
         <div class="opts">
@@ -118,41 +119,33 @@
         <button id="btn-continue" class="ghost hidden">続きから</button>
         <button id="btn-online" class="ghost"><i data-ico="vs"></i> オンライン対戦（友達と）</button>
         <div class="controls">
-          <h3>操作</h3>
+          <h3>操作（スマホ）</h3>
           <table>
-            <tr><td>WASD / Space / Shift</td><td>移動 / ジャンプ / 走る</td></tr>
-            <tr><td>左クリック 長押し→離す</td><td>詠唱。長く溜めるほど強い（魔法陣が大きくなる）</td></tr>
-            <tr><td>ホイール</td><td>集束：上＝細く遠く / 下＝広く近く（射程・拡散・円錐角）</td></tr>
-            <tr><td>右クリック 長押し</td><td>前面障壁。押しながらホイールで大きさ（小＝厚く安い）</td></tr>
-            <tr><td>Q 長押し</td><td>全方位ドーム障壁（範囲攻撃の中心・毒霧用。マナ消費大）</td></tr>
-            <tr><td>1 / 2 / 3 / 4</td><td>杖: 魔弾 / 抽選魔法2つ / 転移（標準装備）。剣・斧: 近接攻撃 / 技2つ（剣は回転斬り・踏み込み斬り、斧は大旋風・雄叫び）</td></tr>
-            <tr><td>剣</td><td>左クリックをタップで3連斬り、長押しで踏み込み突き</td></tr>
-            <tr><td>斧</td><td>タップで振り下ろし、長押しで跳び込み叩きつけ（障壁を大きく削る）</td></tr>
-            <tr><td>飛行中 Space / C</td><td>上昇 / 下降（フレイヤの鷹羽衣を使うと一時的に飛べる）</td></tr>
-            <tr><td>F</td><td>奥義・グングニル（ゲージ満タン時。与ダメ・防御・撃破で溜まる）</td></tr>
+            <tr><td>画面の左半分</td><td>触った所にスティックが出る。左右で移動、上に弾くとジャンプ（空中でもう一度跳べる）、下で足場から降りる</td></tr>
+            <tr><td>攻撃（右下の大きいボタン）</td><td>タップで通常攻撃、長押しで溜め攻撃（剣は踏み込み突き、斧は跳び込み、杖は強い魔弾・貫く光線）</td></tr>
+            <tr><td>技・魔法ボタン（攻撃の上）</td><td>技・魔法ごとに専用のボタン。押すと発動、長押しで溜めて強く。切り替えは不要</td></tr>
+            <tr><td>跳 / 障壁</td><td>ジャンプ / 押している間、前に障壁を張る（出した直後はパリィ）</td></tr>
           </table>
-          <h3>スマホ（タッチ操作）</h3>
+          <h3>操作（キーボード）</h3>
           <table>
-            <tr><td>画面の左半分</td><td>触った所にスティックが出る。奥まで倒すと走る</td></tr>
-            <tr><td>画面の右半分をなぞる</td><td>視点移動</td></tr>
-            <tr><td>詠唱ボタン 長押し→離す</td><td>詠唱。押したまま指を動かすと照準も動く</td></tr>
-            <tr><td>集束スライダー</td><td>上になぞると細く遠く、下で広く近く（障壁中は障壁の大きさ）</td></tr>
-            <tr><td>障壁 / ドーム</td><td>押している間だけ張る</td></tr>
-            <tr><td>下の魔法バー</td><td>タップで魔法を切り替え</td></tr>
+            <tr><td>A D（← →）</td><td>移動</td></tr>
+            <tr><td>W / Space（↑）</td><td>ジャンプ（二段ジャンプ可）。S（↓）で足場から降りる。上下を押しながら撃つと斜めに撃てる</td></tr>
+            <tr><td>J・左クリック</td><td>攻撃（長押しで溜め）</td></tr>
+            <tr><td>U / I / O（1 / 2 / 3）</td><td>技・魔法（長押しで溜め）</td></tr>
+            <tr><td>K・右クリック・Shift</td><td>障壁</td></tr>
           </table>
           <h3>コツ</h3>
           <ul>
-            <li>能力値の低い所を装備で補うか、高い所を伸ばすか。★の相性は目安。</li>
-            <li>相手の能力値は見える。物防が低い相手には剣・斧、魔防が低い相手には杖が通りやすい。</li>
-            <li>不利な能力値なら賭けを小さく、有利なら大きく。ただし相手も同じことを考えている。</li>
-            <li>剣・斧は振りかぶりが見える。見てから前面障壁（右クリック）を張れば防げる。斧は障壁を大きく削る。</li>
-            <li>障壁を出した直後0.25秒はパリィ。爆発の中心や毒霧の中はドーム(Q)でないと防げない。</li>
-            <li>闘技場は炎の輪。20秒後から縮むので、逃げ回るだけでは勝てない。</li>
-            <li>頭に当てるとクリティカル1.5倍。雷は飛んでいる相手を撃ち落とす。</li>
+            <li>弾は近くの相手に自動で狙いが合う。敵が向いている方にいないときは上下を押しながら撃つ。</li>
+            <li>剣・斧は振りかぶりが見える。見てから障壁を張れば防げ、出した直後ならパリィで相手がよろける。斧は障壁を大きく削る。</li>
+            <li>杖は近接に詰められたら転移で離れる。剣は踏み込み斬り、斧は跳び込みでまた詰める。</li>
+            <li>雷と墜星は相手の頭上・足元に落ちる。見てから横に動けば避けられる。</li>
+            <li>賭けは平方根でポイントになる。全部賭けても効率は落ちるので、勝負所を選ぶ。</li>
+            <li>25秒後からスルトの炎が左右から迫る。逃げ回るだけでは勝てない。</li>
           </ul>
           <h3>クレジット</h3>
           <p class="credits">
-            3Dモデル: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>（Kay Lousberg, CC0）<br />
+            キャラクター: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>（Kay Lousberg, CC0）<br />
             アイコン: <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> の Lorc, Delapouite, Skoll, Sbed（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>）、Zeromancer（CC0）。背景を外して単色化<br />
             BGM: Kevin MacLeod「Nordic Wist」、Alexander Nakarada「Blood Eagle」「Jökull (Metal Version)」（<a href="https://freepd.com" target="_blank" rel="noopener">FreePD</a> 公開分, CC0。Nakarada 氏の曲は他所では CC BY 4.0 のため作者名を表記）<br />
             粒子画像: Kenney Particle Pack（CC0）<br />
