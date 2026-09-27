@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@400;700&display=swap" />
-    <script type="module" crossorigin src="./assets/index-Dgc3A-k9.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D6zi7Y3v.css">
+    <script type="module" crossorigin src="./assets/index-HSiMowgc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CMulI1vd.css">
   </head>
   <body>
     <div id="app"></div>
@@ -87,15 +87,14 @@
       <div class="panel title">
         <div class="emblem"><i data-ico="vs"></i></div>
         <h1>MAGIC DUEL <span>北欧魔導決闘</span></h1>
-        <p class="lead">1対1の魔法使いの決闘。能力値は運、装備と賭けは選択、勝敗は腕で決まる。</p>
+        <p class="lead">1対1の決闘。キャラクターは6人、技は開戦のたびに50種類から抽選。</p>
         <div class="howto">
           <b>遊び方</b>
           <ol>
-            <li>300チップを持って、5人の相手に順番に挑む。チップが尽きたら旅は終わり。</li>
-            <li>決闘の前に、ジョブ（剣士・戦士・魔術師・魔導士）を選ぶ。</li>
-            <li>賭けるチップを決める。賭けたチップがそのまま能力値ポイントになる（多く賭けるほど強いが、負ければ失う）。</li>
-            <li>ポイントを体力・物攻・魔攻・物防・魔防・素早さに割り振る（おまかせも可）。杖のジョブは抽選された魔法2つ＋転移を使う。</li>
-            <li>横から見た闘技場で戦い、先に2ラウンド取った方が、両者の賭け金を総取り。</li>
+            <li>6人のキャラクター（剣士2・戦士1・魔法職3）から1人を選ぶ。能力値はキャラクターごとに決まっている。</li>
+            <li>一人旅では残りの5人に順番に挑む。負けても同じ相手に何度でも挑み直せる。</li>
+            <li>開戦のたびに技を3つ引く。近接職は近接の技25種、魔法職は魔法25種から。レアリティはコモン・レア・エピック・レジェンドの4段階。魔法職は転移も標準で持つ。</li>
+            <li>舞台は3つ（炎の闘技場・氷河の湖・雷鳴の丘）。それぞれ動くギミックがある。先に2ラウンド取った方の勝ち。</li>
           </ol>
         </div>
         <div class="opts">
@@ -114,6 +113,9 @@
           <label>操作
             <select id="opt-control"><option value="auto" selected>自動</option><option value="touch">タッチ（スマホ）</option><option value="pc">キーボード＋マウス</option></select>
           </label>
+          <label>ジャイロ視点
+            <select id="opt-gyro"><option value="off" selected>オフ</option><option value="on">オン（スマホを傾けて視点を動かす）</option></select>
+          </label>
         </div>
         <button id="btn-start"><i data-ico="vs"></i> 新しい旅に出る</button>
         <button id="btn-continue" class="ghost hidden">続きから</button>
@@ -121,31 +123,33 @@
         <div class="controls">
           <h3>操作（スマホ）</h3>
           <table>
-            <tr><td>画面の左半分</td><td>触った所にスティックが出る。左右で移動、上に弾くとジャンプ（空中でもう一度跳べる）、下で足場から降りる</td></tr>
-            <tr><td>攻撃（右下の大きいボタン）</td><td>タップで通常攻撃、長押しで溜め攻撃（剣は踏み込み突き、斧は跳び込み、杖は強い魔弾・貫く光線）</td></tr>
-            <tr><td>技・魔法ボタン（攻撃の上）</td><td>技・魔法ごとに専用のボタン。押すと発動、長押しで溜めて強く。切り替えは不要</td></tr>
+            <tr><td>画面の左側</td><td>触った所にスティックが出る。奥まで倒すと走る</td></tr>
+            <tr><td>画面の右側をなぞる</td><td>視点移動</td></tr>
+            <tr><td>攻撃（右下の大きいボタン）</td><td>通常攻撃。長押しで溜め、離して放つ（剣は踏み込み突き、斧は跳び込み）。押したまま指を動かすと照準も動く</td></tr>
+            <tr><td>技・魔法ボタン（攻撃の上）</td><td>技・魔法ごとの専用ボタン。押して溜め、離して放つ。切り替えは不要</td></tr>
             <tr><td>跳 / 障壁</td><td>ジャンプ / 押している間、前に障壁を張る（出した直後はパリィ）</td></tr>
           </table>
-          <h3>操作（キーボード）</h3>
+          <h3>操作（キーボード＋マウス）</h3>
           <table>
-            <tr><td>A D（← →）</td><td>移動</td></tr>
-            <tr><td>W / Space（↑）</td><td>ジャンプ（二段ジャンプ可）。S（↓）で足場から降りる。上下を押しながら撃つと斜めに撃てる</td></tr>
-            <tr><td>J・左クリック</td><td>攻撃（長押しで溜め）</td></tr>
-            <tr><td>U / I / O（1 / 2 / 3）</td><td>技・魔法（長押しで溜め）</td></tr>
-            <tr><td>K・右クリック・Shift</td><td>障壁</td></tr>
+            <tr><td>WASD / Space / Shift</td><td>移動 / ジャンプ / 走る</td></tr>
+            <tr><td>左クリック 長押し→離す</td><td>選んでいる技を溜めて放つ</td></tr>
+            <tr><td>1 / 2 / 3 / 4</td><td>杖: 魔弾 / 抽選魔法2つ / 転移。剣・斧: 通常攻撃 / 技2つ（剣は回転斬り・踏み込み斬り、斧は大旋風・雄叫び）</td></tr>
+            <tr><td>右クリック 長押し</td><td>前面障壁。押しながらホイールで大きさ</td></tr>
+            <tr><td>Q 長押し</td><td>全方位ドーム障壁（範囲攻撃・毒霧用。マナ消費大）</td></tr>
+            <tr><td>ホイール</td><td>集束：上＝細く遠く / 下＝広く近く</td></tr>
+            <tr><td>F</td><td>奥義・グングニル（ゲージ満タン時）</td></tr>
           </table>
           <h3>コツ</h3>
           <ul>
-            <li>弾は向いている方へまっすぐ飛ぶ（自動では狙わない）。上下を押しながら撃つと斜め約30度。高さの違う相手には足場を使うか斜めに撃つ。</li>
-            <li>雷・墜星・瘴気は前方に落ちる。溜めるほど遠く（雷と墜星は4〜16m、瘴気は3〜10m）。距離を読んで溜める。</li>
-            <li>剣・斧は振りかぶりが見える。見てから障壁を張れば防げ、出した直後ならパリィで相手がよろける。斧は障壁を大きく削る。</li>
+            <li>剣・斧は振りかぶりが見える。見てから障壁を張れば防げ、出した直後ならパリィ。斧は障壁を大きく削る。</li>
             <li>杖は近接に詰められたら転移で離れる。剣は踏み込み斬り、斧は跳び込みでまた詰める。</li>
-            <li>賭けは平方根でポイントになる。全部賭けても効率は落ちるので、勝負所を選ぶ。</li>
-            <li>25秒後からスルトの炎が左右から迫る。逃げ回るだけでは勝てない。</li>
+            <li>頭に当てるとクリティカル1.5倍。雷は飛んでいる相手を撃ち落とす。</li>
+            <li>炎の闘技場の炎の帯と、雷鳴の丘の落雷の輪は、どちらにも当たる。相手を追い込むのに使える。</li>
+            <li>闘技場は炎の輪。20秒後から縮むので、逃げ回るだけでは勝てない。</li>
           </ul>
           <h3>クレジット</h3>
           <p class="credits">
-            キャラクター: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>（Kay Lousberg, CC0）<br />
+            3Dモデル: <a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0" target="_blank" rel="noopener">KayKit Adventurers</a>・<a href="https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0" target="_blank" rel="noopener">Skeletons</a>・<a href="https://github.com/KayKit-Game-Assets/KayKit-Dungeon-Remastered-1.0" target="_blank" rel="noopener">Dungeon Remastered</a>（Kay Lousberg, CC0）<br />
             アイコン: <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> の Lorc, Delapouite, Skoll, Sbed（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>）、Zeromancer（CC0）。背景を外して単色化<br />
             BGM: Kevin MacLeod「Nordic Wist」、Alexander Nakarada「Blood Eagle」「Jökull (Metal Version)」（<a href="https://freepd.com" target="_blank" rel="noopener">FreePD</a> 公開分, CC0。Nakarada 氏の曲は他所では CC BY 4.0 のため作者名を表記）<br />
             粒子画像: Kenney Particle Pack（CC0）<br />
